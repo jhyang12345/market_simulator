@@ -83,8 +83,8 @@ def iteration(groups, grids):
                         grid[i][j] = 0
                 else:
                     pass
-    for grid in grids:
-        print_group_with_id(grid)
+#    for grid in grids:
+#        print_group_with_id(grid)
 
 for hours in range(4):
     iteration(groupings, grids)
