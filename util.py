@@ -135,4 +135,7 @@ def print_population_happiness(population, index):
     for person in population:
         ret.append(person.happiness[index])
     c = Counter(ret)
-    print(c)
+    keys = sorted(list(c.keys()))
+    for key in keys:
+        print(str(key) + ": " + str(c[key]))
+    print()
