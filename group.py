@@ -16,18 +16,18 @@ class Group(object):
             person.hours = hour
     def get_hour(self):
         return self.members[0].hours
-    def ishappy(self):
-        return self.members[0].happiness > 0
-    def unhappy(self, magnitude=0.3):
+    def ishappy(self, index):
+        return self.members[0].happiness[index] > 0
+    def unhappy(self, index, magnitude=0.3):
         for person in self.members:
-            person.happiness -= magnitude
-            person.happiness = round(person.happiness, 1)
-    def happy(self, magnitude=0.1):
+            person.happiness[index] -= magnitude
+            person.happiness[index] = round(person.happiness[index], 1)
+    def happy(self, index, magnitude=0.1):
         for person in self.members:
-            person.happiness += magnitude
-            person.happiness = round(person.happiness, 1)
-# unctions:
-# ength
+            person.happiness[index] += magnitude
+            person.happiness[index] = round(person.happiness[index], 1)
+# functions:
+# length
 # add_person
 # set_hour
 # get_hour
@@ -40,11 +40,13 @@ class Person(object):
     group = []
     number = 0
     happiness = 1.0
-    def __init__(self, hours, group, number):
+    def __init__(self, hours, group, number, grid_types=4):
         self.hours = hours
         self.group = group
         self.number = number
-        self.happiness = 1.0
+        self.happiness = []
+        for i in range(grid_types):
+            self.happiness.append(1.0)
 
     def played(self):
         self.hours -= 1

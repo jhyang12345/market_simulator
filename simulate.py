@@ -13,6 +13,7 @@ fours = int(total * 2 / 25)
 num_sum = ones * 1 + twos * 2 + threes * 3 + fours * 4
 
 people = [Person(0, [], i) for i in range(1, total + 1)]
+population = []
 
 groupings = []
 
@@ -27,6 +28,7 @@ def popgroup(people, num):
         person = people.pop(index)
         person.group = group
         group.add_person(person)
+        population.append(person)
     group.id = group_index
 
     group_index += 1
@@ -60,8 +62,9 @@ def iteration(groups, grids):
             count += 1
         if(not group.occupied):
             choose_grid(grids, group)
-    for grid in grids:
-        print_group_with_id(grid)
+    for i, grid in enumerate(grids):
+        print_group_with_id(grid, i)
+        print_population_happiness(population, i)
     print("1 hour has passed\n")
 
     ret = 0
@@ -83,6 +86,7 @@ def iteration(groups, grids):
                         grid[i][j] = 0
                 else:
                     pass
+
 #    for grid in grids:
 #        print_group_with_id(grid)
 

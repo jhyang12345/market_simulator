@@ -1,4 +1,5 @@
 import random, os
+from collections import Counter
 
 rows = 7
 cols = 6
@@ -45,7 +46,7 @@ def print_group(grid):
                 ret += " "
         print(ret)
 
-def print_group_with_id(grid):
+def print_group_with_id(grid, index):
     gap = " "
     padding = "      "
     empty_seats = 0
@@ -78,7 +79,7 @@ def print_group_with_id(grid):
         ret += padding
         for person in row:
             if person != 0:
-                ret += str(person.happiness).rjust(4)
+                ret += str(person.happiness[index]).rjust(4)
                 ret += gap
             else:
                 ret += str(0).rjust(4)
@@ -97,14 +98,14 @@ def choose_hours(low =1, high = 4): # inclusive
 
 def choose_grid(grids, group):
     choice = random.randint(0, len(grids) - 1)
-    if(not group.ishappy()):
+    if(not group.ishappy(choice)):
         return
     group.set_hour(choose_hours())
     result = fit_grid(grids[choice], group)
     if(result):
         pass
     else:
-        group.unhappy()
+        group.unhappy(choice)
 
 
 def fit_grid(grid, group):
@@ -128,3 +129,10 @@ def fit_grid(grid, group):
     for y in range(spot_y, spot_y + num):
         grid[spot_x][y] = group.members[y - spot_y]
     return True
+
+def print_population_happiness(population, index):
+    ret = []
+    for person in population:
+        ret.append(person.happiness[index])
+    c = Counter(ret)
+    print(c)
